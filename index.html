@@ -6,409 +6,238 @@
   <title>ログイン — Dasopedia</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
-
     :root {
       --bg: #0f1117;
       --surface: #1a1d27;
-      --surface2: #20243380;
-      --border: #2a2d3a;
-      --accent: #6c63ff;
-      --accent-hover: #8b84ff;
-      --text: #e8e9f0;
-      --text-muted: #6b6f85;
-      --error: #ff5c5c;
-      --success: #4caf7d;
-      --google: #4285f4;
-      --font: 'Inter', system-ui, sans-serif;
+      --border: #2a2d3e;
+      --accent: #6c8bef;
+      --accent-hover: #8aa3f5;
+      --text: #e8eaf0;
+      --text-muted: #7b7f96;
+      --error: #ef6c6c;
+      --font: 'Inter', 'Hiragino Sans', sans-serif;
     }
-
     body {
-      font-family: var(--font);
       background: var(--bg);
       color: var(--text);
+      font-family: var(--font);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
     }
-
-    /* 背景グリッド */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 400px;
-      position: relative;
-    }
-
-    .logo-wrap {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -1px;
-      color: var(--text);
-    }
-
-    .logo span { color: var(--accent); }
-
-    .tagline {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 32px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
     }
-
-    .tabs {
-      display: flex;
-      gap: 4px;
-      background: var(--bg);
-      border-radius: 8px;
-      padding: 4px;
-      margin-bottom: 28px;
-    }
-
+    .logo { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; }
+    h1 { font-size: 24px; font-weight: 700; margin-bottom: 28px; letter-spacing: -0.02em; }
+    .tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; padding: 3px; margin-bottom: 28px; }
     .tab {
       flex: 1;
-      padding: 8px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s;
+      background: none;
       border: none;
-      background: transparent;
-      font-family: var(--font);
-    }
-
-    .tab.active {
-      background: var(--surface);
-      color: var(--text);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-
-    .field { margin-bottom: 16px; }
-
-    label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
+      border-radius: 6px;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 6px;
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px;
+      transition: all 0.15s;
     }
-
+    .tab.active { background: var(--accent); color: #fff; }
+    .form { display: flex; flex-direction: column; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
     input {
-      width: 100%;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 11px 14px;
-      font-size: 14px;
       color: var(--text);
       font-family: var(--font);
-      outline: none;
+      font-size: 14px;
+      padding: 12px 14px;
       transition: border-color 0.15s;
-    }
-
-    input:focus { border-color: var(--accent); }
-    input::placeholder { color: var(--text-muted); }
-
-    .btn-primary {
+      outline: none;
       width: 100%;
+    }
+    input:focus { border-color: var(--accent); }
+    .btn-primary {
       background: var(--accent);
-      color: #fff;
       border: none;
       border-radius: 8px;
-      padding: 12px;
+      color: #fff;
+      cursor: pointer;
+      font-family: var(--font);
       font-size: 14px;
       font-weight: 600;
-      font-family: var(--font);
-      cursor: pointer;
+      padding: 13px;
       transition: background 0.15s, opacity 0.15s;
+      width: 100%;
       margin-top: 4px;
     }
-
     .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 20px 0;
-      color: var(--text-muted);
-      font-size: 12px;
-    }
-
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
+    .divider { display: flex; align-items: center; gap: 12px; margin: 4px 0; }
+    .divider::before, .divider::after { content: ''; flex: 1; border-top: 1px solid var(--border); }
+    .divider span { font-size: 12px; color: var(--text-muted); }
     .btn-google {
-      width: 100%;
-      background: transparent;
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 11px;
+      color: var(--text);
+      cursor: pointer;
+      font-family: var(--font);
       font-size: 14px;
       font-weight: 500;
-      color: var(--text);
-      font-family: var(--font);
-      cursor: pointer;
+      padding: 12px;
+      transition: border-color 0.15s;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      transition: border-color 0.15s, background 0.15s;
     }
-
-    .btn-google:hover { border-color: var(--accent); background: rgba(108,99,255,0.05); }
-
-    .google-icon {
-      width: 18px;
-      height: 18px;
-    }
-
-    .msg {
-      margin-top: 16px;
-      padding: 11px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      display: none;
-      line-height: 1.5;
-    }
-
-    .msg.error { background: rgba(255,92,92,0.1); border: 1px solid rgba(255,92,92,0.3); color: var(--error); display: block; }
-    .msg.success { background: rgba(76,175,125,0.1); border: 1px solid rgba(76,175,125,0.3); color: var(--success); display: block; }
-
-    .form-section { display: none; }
-    .form-section.active { display: block; }
-
-    .hint {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 6px;
-      line-height: 1.5;
-    }
+    .btn-google:hover { border-color: var(--accent); }
+    .message { font-size: 13px; padding: 12px 14px; border-radius: 8px; display: none; }
+    .message.error { background: rgba(239,108,108,0.12); border: 1px solid rgba(239,108,108,0.3); color: var(--error); display: block; }
+    #register-displayName { display: none; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo-wrap">
-      <div class="logo">Daso<span>pedia</span></div>
-      <div class="tagline">仲間内のナレッジベース</div>
+  <div class="card">
+    <div class="logo">Dasopedia</div>
+    <h1>ようこそ</h1>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('login')">ログイン</button>
+      <button class="tab" onclick="switchTab('register')">新規登録</button>
     </div>
 
-    <div class="card">
-      <div class="tabs">
-        <button class="tab active" onclick="switchTab('login')">ログイン</button>
-        <button class="tab" onclick="switchTab('register')">新規登録</button>
+    <div class="form">
+      <div class="field" id="register-displayName">
+        <label>表示名</label>
+        <input type="text" id="displayName" placeholder="あなたの名前" autocomplete="name">
       </div>
-
-      <!-- ログインフォーム -->
-      <div id="login-section" class="form-section active">
-        <div class="field">
-          <label>メールアドレス</label>
-          <input type="email" id="login-email" placeholder="you@example.com">
-        </div>
-        <div class="field">
-          <label>パスワード</label>
-          <input type="password" id="login-password" placeholder="••••••••">
-        </div>
-        <button class="btn-primary" id="login-btn" onclick="handleLogin()">ログイン</button>
-
-        <div class="divider">または</div>
-
-        <button class="btn-google" onclick="handleGoogle()">
-          <svg class="google-icon" viewBox="0 0 48 48">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          </svg>
-          Googleでログイン
-        </button>
+      <div class="field">
+        <label>メールアドレス</label>
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
       </div>
-
-      <!-- 新規登録フォーム -->
-      <div id="register-section" class="form-section">
-        <div class="field">
-          <label>表示名</label>
-          <input type="text" id="register-name" placeholder="Kai">
-        </div>
-        <div class="field">
-          <label>メールアドレス</label>
-          <input type="email" id="register-email" placeholder="you@example.com">
-        </div>
-        <div class="field">
-          <label>パスワード</label>
-          <input type="password" id="register-password" placeholder="6文字以上">
-          <div class="hint">6文字以上で設定してください</div>
-        </div>
-        <button class="btn-primary" id="register-btn" onclick="handleRegister()">アカウントを作成</button>
-
-        <div class="divider">または</div>
-
-        <button class="btn-google" onclick="handleGoogle()">
-          <svg class="google-icon" viewBox="0 0 48 48">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-          </svg>
-          Googleで登録
-        </button>
+      <div class="field">
+        <label>パスワード</label>
+        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
       </div>
-
-      <div id="msg" class="msg"></div>
+      <div id="msg" class="message"></div>
+      <button class="btn-primary" id="submitBtn" onclick="doSubmit()">ログイン</button>
+      <div class="divider"><span>または</span></div>
+      <button class="btn-google" onclick="doGoogle()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+        Google でログイン
+      </button>
     </div>
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { auth, rtdb } from './js/firebase.js';
+    import {
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      updateProfile,
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyA_51OiIxVU-e6_8MVCXIauXMEdB_58sNE",
-      authDomain: "wiki-dasopedia.firebaseapp.com",
-      databaseURL: "https://wiki-dasopedia-default-rtdb.asia-southeast1.firebasedatabase.app/",
-      projectId: "wiki-dasopedia",
-      storageBucket: "wiki-dasopedia.firebasestorage.app",
-      messagingSenderId: "446627888444",
-      appId: "1:446627888444:web:925738873ea94118417239"
-    };
+    const REDIRECT = 'https://dasopedia.f5.si';
+    const msgEl = document.getElementById('msg');
+    const btn   = document.getElementById('submitBtn');
+    let mode = 'login';
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
-    const googleProvider = new GoogleAuthProvider();
-
-    // ログイン済みなら main へリダイレクト
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.href = 'https://dasopedia.f5.si';
-      }
+    onAuthStateChanged(auth, user => {
+      if (user) window.location.href = REDIRECT;
     });
 
-    // ユーザーをDBに登録（初回のみ）
-    async function ensureUserInDB(user, displayName) {
-      const userRef = ref(db, `users/${user.uid}`);
-      const snapshot = await get(userRef);
-      if (!snapshot.exists()) {
-        await set(userRef, {
-          displayName: displayName || user.displayName || user.email.split('@')[0],
-          email: user.email,
-          role: 'viewer', // 初期ロールはviewer（adminがeditorに昇格させる）
+    window.switchTab = function(tab) {
+      mode = tab;
+      document.querySelectorAll('.tab').forEach((t, i) => {
+        t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
+      });
+      document.getElementById('register-displayName').style.display = tab === 'register' ? 'flex' : 'none';
+      btn.textContent = tab === 'login' ? 'ログイン' : 'アカウントを作成';
+      msgEl.className = 'message';
+    };
+
+    function showMsg(text) {
+      msgEl.textContent = text;
+      msgEl.className = 'message error';
+    }
+
+    async function ensureUserRecord(user) {
+      const snap = await get(ref(rtdb, `users/${user.uid}`));
+      if (!snap.exists()) {
+        await set(ref(rtdb, `users/${user.uid}`), {
+          displayName: user.displayName || '',
+          email: user.email || '',
+          role: 'viewer',
           createdAt: Date.now()
         });
       }
     }
 
-    function showMsg(text, type) {
-      const el = document.getElementById('msg');
-      el.textContent = text;
-      el.className = 'msg ' + type;
-    }
+    window.doSubmit = async function() {
+      const email       = document.getElementById('email').value.trim();
+      const password    = document.getElementById('password').value;
+      const displayName = document.getElementById('displayName').value.trim();
 
-    function setLoading(btnId, loading) {
-      const btn = document.getElementById(btnId);
-      btn.disabled = loading;
-      btn.textContent = loading ? '処理中...' : btn.dataset.label || btn.textContent;
-    }
+      if (!email || !password) { showMsg('メールアドレスとパスワードを入力してください。'); return; }
+      if (mode === 'register' && !displayName) { showMsg('表示名を入力してください。'); return; }
 
-    window.switchTab = (tab) => {
-      document.querySelectorAll('.tab').forEach((t, i) => {
-        t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
-      });
-      document.getElementById('login-section').classList.toggle('active', tab === 'login');
-      document.getElementById('register-section').classList.toggle('active', tab === 'register');
-      document.getElementById('msg').className = 'msg';
-    };
+      btn.disabled = true;
+      btn.textContent = '処理中...';
 
-    window.handleLogin = async () => {
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-      if (!email || !password) return showMsg('メールアドレスとパスワードを入力してください', 'error');
       try {
-        document.getElementById('login-btn').disabled = true;
-        document.getElementById('login-btn').textContent = 'ログイン中...';
-        await signInWithEmailAndPassword(auth, email, password);
-      } catch (e) {
-        const msgs = {
-          'auth/user-not-found': 'アカウントが見つかりません',
-          'auth/wrong-password': 'パスワードが間違っています',
-          'auth/invalid-email': 'メールアドレスの形式が正しくありません',
-          'auth/too-many-requests': 'ログイン試行が多すぎます。しばらくお待ちください'
-        };
-        showMsg(msgs[e.code] || 'ログインに失敗しました', 'error');
-        document.getElementById('login-btn').disabled = false;
-        document.getElementById('login-btn').textContent = 'ログイン';
-      }
-    };
-
-    window.handleRegister = async () => {
-      const name = document.getElementById('register-name').value.trim();
-      const email = document.getElementById('register-email').value.trim();
-      const password = document.getElementById('register-password').value;
-      if (!name) return showMsg('表示名を入力してください', 'error');
-      if (!email) return showMsg('メールアドレスを入力してください', 'error');
-      if (password.length < 6) return showMsg('パスワードは6文字以上にしてください', 'error');
-      try {
-        document.getElementById('register-btn').disabled = true;
-        document.getElementById('register-btn').textContent = '登録中...';
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(cred.user, { displayName: name });
-        await ensureUserInDB(cred.user, name);
-      } catch (e) {
-        const msgs = {
-          'auth/email-already-in-use': 'このメールアドレスはすでに使用されています',
-          'auth/invalid-email': 'メールアドレスの形式が正しくありません',
-          'auth/weak-password': 'パスワードが弱すぎます'
-        };
-        showMsg(msgs[e.code] || '登録に失敗しました', 'error');
-        document.getElementById('register-btn').disabled = false;
-        document.getElementById('register-btn').textContent = 'アカウントを作成';
-      }
-    };
-
-    window.handleGoogle = async () => {
-      try {
-        const cred = await signInWithPopup(auth, googleProvider);
-        await ensureUserInDB(cred.user, cred.user.displayName);
-      } catch (e) {
-        if (e.code !== 'auth/popup-closed-by-user') {
-          showMsg('Googleログインに失敗しました', 'error');
+        if (mode === 'login') {
+          const cred = await signInWithEmailAndPassword(auth, email, password);
+          await ensureUserRecord(cred.user);
+        } else {
+          if (password.length < 8) { showMsg('パスワードは8文字以上にしてください。'); btn.disabled = false; btn.textContent = 'アカウントを作成'; return; }
+          const cred = await createUserWithEmailAndPassword(auth, email, password);
+          await updateProfile(cred.user, { displayName });
+          await set(ref(rtdb, `users/${cred.user.uid}`), {
+            displayName, email, role: 'viewer', createdAt: Date.now()
+          });
         }
+        window.location.href = REDIRECT;
+      } catch (e) {
+        const msgs = {
+          'auth/invalid-credential': 'メールアドレスまたはパスワードが違います。',
+          'auth/user-not-found': 'このメールアドレスのアカウントが見つかりません。',
+          'auth/wrong-password': 'パスワードが違います。',
+          'auth/email-already-in-use': 'このメールアドレスは既に使用されています。',
+          'auth/invalid-email': '有効なメールアドレスを入力してください。',
+          'auth/weak-password': 'パスワードが弱すぎます。'
+        };
+        showMsg(msgs[e.code] || `エラー: ${e.message}`);
+        btn.disabled = false;
+        btn.textContent = mode === 'login' ? 'ログイン' : 'アカウントを作成';
+      }
+    };
+
+    window.doGoogle = async function() {
+      try {
+        const provider = new GoogleAuthProvider();
+        const cred = await signInWithPopup(auth, provider);
+        await ensureUserRecord(cred.user);
+        window.location.href = REDIRECT;
+      } catch (e) {
+        if (e.code !== 'auth/popup-closed-by-user') showMsg(`Googleログインエラー: ${e.message}`);
       }
     };
   </script>
