@@ -160,7 +160,9 @@
     const btn   = document.getElementById('submitBtn');
     let mode = 'login';
 
-    onAuthStateChanged(auth, user => {
+    // Firebase auth状態が確定してからリダイレクト判定
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      unsubscribe();
       if (user) window.location.href = REDIRECT;
     });
 
